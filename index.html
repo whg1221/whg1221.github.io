@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>致晓青</title>
+    <style>
+
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .show-text1 {
+    	text-align: center;
+        animation: fade-in 4s 0s forwards ease-out;
+        animation-fill-mode: both;
+    }
+
+    .show-text2 {
+    	text-align: center;
+        animation: fade-in 4s 2s forwards ease-out;
+        animation-fill-mode: both;
+    }
+
+    .show-text3 {
+    	text-align: center;
+        animation: fade-in 4s 4s forwards ease-out;
+        animation-fill-mode: both;
+    }
+    </style>
+    <script type="text/javascript">
+    function startTime() {
+        var bornTime = (new Date("1993/12/21 14:45:00")).getTime(); //1970~出生 毫秒数
+        var passTime = (new Date("2073/12/21 14:45:00")).getTime(); //1970~死亡 毫秒数
+        var nowTime = Date.parse(new Date()); //1970~现在 毫秒数
+        var timewithYou = (passTime - nowTime) / (passTime - bornTime) * 100;
+        document.getElementById('txt').innerHTML = timewithYou + "%"
+        t = setTimeout('startTime()', 500)
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i
+        }
+        return i
+    }
+    </script>
+</head>
+
+<body>
+
+    <body onload="startTime()">
+        <p class="show-text1">如果我能正正好好活到八十岁</p>
+        <p class="show-text2">那么我 <span id="txt"></span> 的余生</p>
+        <p class="show-text3">都要和你在一起</p>
+    </body>
+
+</html>
