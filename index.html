@@ -1,66 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="UTF-8">
-    <title>致晓青</title>
-    <style>
-
-    @keyframes fade-in {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-
-    .show-text1 {
-        font-size: 3em;
-    	text-align: center;
-        animation: fade-in 4s 0s forwards ease-out;
-        animation-fill-mode: both;
-    }
-
-    .show-text2 {
-        font-size: 3em;
-    	text-align: center;
-        animation: fade-in 4s 2s forwards ease-out;
-        animation-fill-mode: both;
-    }
-
-    .show-text3 {
-        font-size: 3em;
-    	text-align: center;
-        animation: fade-in 4s 4s forwards ease-out;
-        animation-fill-mode: both;
-    }
-    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>王华钢的简历</title>
+    <meta name="author" content="whg1221" />
+    <meta name="description" content="fullPage full-screen backgrounds." />
+    <meta name="keywords" content="fullpage,jquery,demo,screen,fullscreen,backgrounds,full-screen" />
+    <meta name="Resource-type" content="Document" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.fullPage.css" />
+    <link rel="stylesheet" type="text/css" href="css/examples.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <!--[if IE]>
+		<script type="text/javascript">
+			 var console = { log: function() {} };
+		</script>
+	<![endif]-->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/jquery.fullPage.js"></script>
+    <script type="text/javascript" src="js/jquery.slimscroll.js"></script>
+    <!--<script type="text/javascript" src="js/examples.js"></script>-->
     <script type="text/javascript">
-    function startTime() {
-        var bornTime = (new Date("1993/12/21 14:45:00")).getTime(); //1970~出生 毫秒数
-        var passTime = (new Date("2073/12/21 14:45:00")).getTime(); //1970~死亡 毫秒数
-        var nowTime = Date.parse(new Date()); //1970~现在 毫秒数
-        var timewithYou = (passTime - nowTime) / (passTime - bornTime) * 100;
-        document.getElementById('txt').innerHTML = timewithYou + "%"
-        t = setTimeout('startTime()', 500)
-    }
-
-    function checkTime(i) {
-        if (i < 10) {
-            i = "0" + i
-        }
-        return i
-    }
+    $(document).ready(function() {
+        $('#fullpage').fullpage({
+				anchors: ['0', '1', '2', '3', '4', '5', '6'],
+				navigation: true,
+				slidesNavigation: true,
+				navigationPosition: 'right',
+				navigationTooltips: ['首页', '项目', '技能', '教育', '实习', '求职', '联系']
+			});
+    });
     </script>
 </head>
 
 <body>
+    <div id="fullpage">
+        <div class="section " id="section0">
+        <img src="imgs/avatar.png" alt="avatar"/>
+        <br/>
+        <br/>
+            <h1>王华钢</h1>
+        <br/>
+            <p>网页前端工程师</p>
+        <br/>
+            <a href="mailto:whg1221@outlook.com">whg1221@outlook.com</a>
+        </div>
+        <div class="section" id="section1">
+            <h1>项目经验</h1>
+        </div>
+        <div class="section" id="section2">
+            <div class="intro">
+                <h1>技能</h1>
+                <p>Using CSS3 gradients you can play as much as you want with graduated colors</p>
+            </div>
+        </div>
+        <div class="section " id="section3">
+            <h1>教育</h1>
+        </div>
+        <div class="section " id="section4">
+            <div class="slide" id="slide1">
+                <h1>实习1</h1>
+            </div>
+            <div class="slide" id="slide2">
+                <h1>实习2</h1>
+            </div>
+        </div>
+        <div class="section " id="section5">
+            <h1>求职</h1>
+        </div>
+        <div class="section " id="section6">
+            <h1>联系</h1>
+        </div>
+    </div>
 
-    <body onload="startTime()">
-        <p class="show-text1">如果我能正正好好活到八十岁</p>
-        <p class="show-text2">那么我 <span id="txt"></span> 的余生</p>
-        <p class="show-text3">都要和你在一起</p>
-    </body>
+</body>
 
 </html>

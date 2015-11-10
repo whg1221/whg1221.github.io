@@ -1,0 +1,85 @@
+*{ font-family: Microsoft YaHei,'宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}
+    /* Style for our header texts
+	* --------------------------------------- */
+    
+    h1 {
+        font-size: 4em;
+        /*font-family: arial, helvetica;*/
+        color: #fff;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .intro p {
+        color: #fff;
+    }
+    /* Centered texts in each section
+	* --------------------------------------- */
+    
+    .section {
+        text-align: center;
+    }
+    /* Defining each section background and styles
+	* --------------------------------------- */
+    
+    #section0 {
+        background: -webkit-gradient(linear, top left, bottom left, from(#4BBFC3), to(#4FB2BB));
+        background: -webkit-linear-gradient(#4BBFC3, #4FB2BB);
+        background: linear-gradient(#4BBFC3, #4FB2BB);
+    }
+    
+    #section1 {
+        background: -webkit-gradient(linear, top left, bottom left, from(#4FB2BB), to(#53A5B3));
+        background: -webkit-linear-gradient(#4FB2BB, #53A5B3);
+        background: linear-gradient(#4FB2BB, #53A5B3);
+    }
+
+    #section2 {
+        background: -webkit-gradient(linear, top left, bottom left, from(#53A5B3), to(#5798AB));
+        background: -webkit-linear-gradient(#53A5B3, #5798AB);
+        background: linear-gradient(#53A5B3, #5798AB);
+    }
+
+    #section3 {
+        background: -webkit-gradient(linear, top left, bottom left, from(#5798AB), to(#5B7E9B));
+        background: -webkit-linear-gradient(#5798AB, #5B7E9B);
+        background: linear-gradient(#5798AB, #5B7E9B);
+    }
+
+    #section4 {
+        background: -webkit-gradient(linear, top left, bottom left, from(#5B7E9B), to(#5F7E9B));
+        background: -webkit-linear-gradient(#5B7E9B, #5F7E9B);
+        background: linear-gradient(#5B7E9B, #5F7E9B);
+    }
+
+    #section5 {
+        background: -webkit-gradient(linear, top left, bottom left, from(#5F7E9B), to(#636F8F));
+        background: -webkit-linear-gradient(#5F7E9B, #636F8F);
+        background: linear-gradient(#5F7E9B, #636F8F);
+    }
+
+    #section6 {
+        background: -webkit-gradient(linear, top left, bottom left, from(#636F8F), to(#676287));
+        background: -webkit-linear-gradient(#636F8F, #676287);
+        background: linear-gradient(#636F8F, #676287);
+    }
+    /*Adding background for the slides
+	* --------------------------------------- */
+    
+    #slide1 {
+        background: -webkit-gradient(linear, top left, bottom left, from(#5B7E9B), to(#5F7E9B));
+        background: -webkit-linear-gradient(#5B7E9B, #5F7E9B);
+        background: linear-gradient(#5B7E9B, #5F7E9B);
+    }
+    
+    #slide2 {
+        background: -webkit-gradient(linear, top left, bottom left, from(#5B7E9B), to(#5F7E9B));
+        background: -webkit-linear-gradient(#5B7E9B, #5F7E9B);
+        background: linear-gradient(#5B7E9B, #5F7E9B);
+    }
+    /* Bottom menu
+	* --------------------------------------- */
+    
+    #infoMenu li a {
+        color: #fff;
+    }
