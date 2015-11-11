@@ -1,85 +1,195 @@
-*{ font-family: Microsoft YaHei,'宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}
-    /* Style for our header texts
-	* --------------------------------------- */
-    
-    h1 {
-        font-size: 4em;
-        /*font-family: arial, helvetica;*/
-        color: #fff;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .intro p {
-        color: #fff;
-    }
-    /* Centered texts in each section
-	* --------------------------------------- */
-    
-    .section {
-        text-align: center;
-    }
-    /* Defining each section background and styles
-	* --------------------------------------- */
-    
-    #section0 {
-        background: -webkit-gradient(linear, top left, bottom left, from(#4BBFC3), to(#4FB2BB));
-        background: -webkit-linear-gradient(#4BBFC3, #4FB2BB);
-        background: linear-gradient(#4BBFC3, #4FB2BB);
-    }
-    
-    #section1 {
-        background: -webkit-gradient(linear, top left, bottom left, from(#4FB2BB), to(#53A5B3));
-        background: -webkit-linear-gradient(#4FB2BB, #53A5B3);
-        background: linear-gradient(#4FB2BB, #53A5B3);
-    }
+*
+{
+    font-family: Microsoft YaHei,'宋体' , Tahoma, Helvetica, Arial, '\5b8b\4f53', sans-serif;
+}
+/* Style for our header texts
+    * --------------------------------------- */
 
-    #section2 {
-        background: -webkit-gradient(linear, top left, bottom left, from(#53A5B3), to(#5798AB));
-        background: -webkit-linear-gradient(#53A5B3, #5798AB);
-        background: linear-gradient(#53A5B3, #5798AB);
-    }
+a {
+    color: #283593;
+}
 
-    #section3 {
-        background: -webkit-gradient(linear, top left, bottom left, from(#5798AB), to(#5B7E9B));
-        background: -webkit-linear-gradient(#5798AB, #5B7E9B);
-        background: linear-gradient(#5798AB, #5B7E9B);
-    }
+a:hover {
+    color: #5C6BC0;
+}
 
-    #section4 {
-        background: -webkit-gradient(linear, top left, bottom left, from(#5B7E9B), to(#5F7E9B));
-        background: -webkit-linear-gradient(#5B7E9B, #5F7E9B);
-        background: linear-gradient(#5B7E9B, #5F7E9B);
-    }
+a:visited {
+    color: ##3949AB;
+}
 
-    #section5 {
-        background: -webkit-gradient(linear, top left, bottom left, from(#5F7E9B), to(#636F8F));
-        background: -webkit-linear-gradient(#5F7E9B, #636F8F);
-        background: linear-gradient(#5F7E9B, #636F8F);
-    }
+h1
+{
+    font-size: 4em;
 
-    #section6 {
-        background: -webkit-gradient(linear, top left, bottom left, from(#636F8F), to(#676287));
-        background: -webkit-linear-gradient(#636F8F, #676287);
-        background: linear-gradient(#636F8F, #676287);
-    }
-    /*Adding background for the slides
-	* --------------------------------------- */
-    
-    #slide1 {
-        background: -webkit-gradient(linear, top left, bottom left, from(#5B7E9B), to(#5F7E9B));
-        background: -webkit-linear-gradient(#5B7E9B, #5F7E9B);
-        background: linear-gradient(#5B7E9B, #5F7E9B);
-    }
-    
-    #slide2 {
-        background: -webkit-gradient(linear, top left, bottom left, from(#5B7E9B), to(#5F7E9B));
-        background: -webkit-linear-gradient(#5B7E9B, #5F7E9B);
-        background: linear-gradient(#5B7E9B, #5F7E9B);
-    }
-    /* Bottom menu
-	* --------------------------------------- */
-    
-    #infoMenu li a {
-        color: #fff;
-    }
+    margin: 0;
+    padding: 0;
+    /*font-family: arial, helvetica;*/
+
+    color: #fff;
+}
+
+.intro p
+{
+    color: #fff;
+}
+/* Centered texts in each section
+    * --------------------------------------- */
+
+.section
+{
+    text-align: center;
+}
+/* Defining each section background and styles
+    * --------------------------------------- */
+
+#section0
+{
+    background: -webkit-gradient(linear, top left, bottom left, from(#4bbfc3), to(#4fb2bb));
+    background: -webkit-linear-gradient(#4bbfc3, #4fb2bb);
+    background:         linear-gradient(#4bbfc3, #4fb2bb);
+}
+
+#section1
+{
+    background: -webkit-gradient(linear, top left, bottom left, from(#4fb2bb), to(#53a5b3));
+    background: -webkit-linear-gradient(#4fb2bb, #53a5b3);
+    background:         linear-gradient(#4fb2bb, #53a5b3);
+}
+
+#section2
+{
+    background: -webkit-gradient(linear, top left, bottom left, from(#53a5b3), to(#5798ab));
+    background: -webkit-linear-gradient(#53a5b3, #5798ab);
+    background:         linear-gradient(#53a5b3, #5798ab);
+}
+
+#section3
+{
+    background: -webkit-gradient(linear, top left, bottom left, from(#5798ab), to(#5b7e9b));
+    background: -webkit-linear-gradient(#5798ab, #5b7e9b);
+    background:         linear-gradient(#5798ab, #5b7e9b);
+}
+
+#section4
+{
+    background: -webkit-gradient(linear, top left, bottom left, from(#5b7e9b), to(#5f7e9b));
+    background: -webkit-linear-gradient(#5b7e9b, #5f7e9b);
+    background:         linear-gradient(#5b7e9b, #5f7e9b);
+}
+
+#section5
+{
+    background: -webkit-gradient(linear, top left, bottom left, from(#5f7e9b), to(#636f8f));
+    background: -webkit-linear-gradient(#5f7e9b, #636f8f);
+    background:         linear-gradient(#5f7e9b, #636f8f);
+}
+
+#section6
+{
+    background: -webkit-gradient(linear, top left, bottom left, from(#636f8f), to(#676287));
+    background: -webkit-linear-gradient(#636f8f, #676287);
+    background:         linear-gradient(#636f8f, #676287);
+}
+/*Adding background for the slides
+    * --------------------------------------- */
+
+#slide1
+{
+    background: -webkit-gradient(linear, top left, bottom left, from(#5b7e9b), to(#5f7e9b));
+    background: -webkit-linear-gradient(#5b7e9b, #5f7e9b);
+    background:         linear-gradient(#5b7e9b, #5f7e9b);
+}
+
+#slide2
+{
+    background: -webkit-gradient(linear, top left, bottom left, from(#5b7e9b), to(#5f7e9b));
+    background: -webkit-linear-gradient(#5b7e9b, #5f7e9b);
+    background:         linear-gradient(#5b7e9b, #5f7e9b);
+}
+/* Bottom menu
+    * --------------------------------------- */
+
+#infoMenu li a
+{
+    color: #fff;
+}
+
+h4
+{
+    font-size: 1em;
+
+    margin: 0;
+    padding: 0;
+    /*font-family: arial, helvetica;*/
+
+    color: #fff;
+}
+
+h2
+{
+    font-size: 3em;
+
+    margin: 0;
+    padding: 0;
+    /*font-family: arial, helvetica;*/
+
+    color: #fff;
+}
+
+.project_container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.project_img {
+    width: 50%;
+    float:left;
+}
+
+.project_span {
+    width: 46%;
+    float: right;
+    padding: 20px;
+    line-height: 2.5em;
+    text-align: left;
+}
+
+.h4_span {
+    font-size: 1.5em;
+}
+
+.skill_block1 {
+    padding: 5px;
+    margin: 0 10px;
+    line-height: 3em;
+    border-radius: 2px;
+    color: #fff;
+    background: #304FFE;
+}
+
+.skill_block2 {
+    padding: 5px;
+    margin: 0 10px;
+    line-height: 3em;
+    border-radius: 2px;
+    color: #fff;
+    background: #3D5AFE;
+}
+
+.skill_block3 {
+    padding: 5px;
+    margin: 0 10px;
+    line-height: 3em;
+    border-radius: 2px;
+    color: #fff;
+    background: #536DFE;
+}
+
+.skill_block4 {
+    padding: 5px;
+    margin: 0 10px;
+    line-height: 3em;
+    border-radius: 2px;
+    color: #fff;
+    background: #8C9EFF;
+}
