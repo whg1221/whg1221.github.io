@@ -1,6 +1,8 @@
 # whg1221.github.io
-1002婚礼抽奖
+- Powered by [Hexo](https://hexo.io/zh-cn/)
 
-利用vue脚手架生成
+- Theme by [flex-block](https://github.com/miiiku/hexo-theme-flexblock)
 
-在左上角点击5次可打开隐藏设置
+此repo仅供GitHub Pages发布用，源代码仓库在[hexo-blog](https://github.com/whg1221/hexo-blog)
+
+为规避频繁提交引起的页面问题，没有引入Travis CI或Github Actions实时deploy
