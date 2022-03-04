@@ -22,7 +22,7 @@
 
   
 
-  <title>Sublime Text介绍 | whg1221的小站</title>
+  <title>Electron——携程售票机native解决方案调研 | whg1221的小站</title>
 
   
 
@@ -102,21 +102,21 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">Sublime Text介绍</h1>
+          <h1 class="title-wrap">Electron——携程售票机native解决方案调研</h1>
           <h2 class="title-sub-wrap">
             <strong>whg1221</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2016-09-09T10:00:00.000Z" itemprop="datePublished">2016-09-09</time>
+            <time  class="article-date" datetime="2020-11-13T10:00:00.000Z" itemprop="datePublished">2020-11-13</time>
           </h2>
           <ul class="wrap-list dark">
   
     
-    <li><a href="/categories/essay/">📒 其他随笔</a></li>
+    <li><a href="/categories/dig-in/">📒 深入研究</a></li>
   
 </ul>
           <ul class="wrap-list dark">
   
-    <li><a href="/tags/sublime-text/">🏷️ sublime text</a></li>
+    <li><a href="/tags/electron/">🏷️ electron</a></li>
   
 </ul>
         </div>
@@ -140,29 +140,52 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <h1 id="一、Sublime-Text-介绍"><a href="#一、Sublime-Text-介绍" class="headerlink" title="一、Sublime Text 介绍"></a>一、Sublime Text 介绍</h1><h3 id="Sublime-Text-特色"><a href="#Sublime-Text-特色" class="headerlink" title="Sublime Text 特色"></a>Sublime Text 特色</h3><ul>
-<li>跨平台（Windows、Linux、Mac OS X）</li>
-<li>支持众多编程语言，支持语法上色，可通过下载外挂支持更多编程语言</li>
-<li>支持多行编辑啥的好用的小功能</li>
-<li>支持主题~主题~~主题~~~折腾控福音Σ(ﾟ∀ﾟﾉ)ﾉ</li>
-<li>最重要的是，插件众多！</li>
+        <h1 id="一、Electron简述"><a href="#一、Electron简述" class="headerlink" title="一、Electron简述"></a>一、Electron简述</h1><p>Electron（原名为Atom Shell）是GitHub开发的一个开源框架。它允许使用Node.js（作为后端）和Chromium（作为前端）完成桌面GUI应用程序的开发。</p>
+<ul>
+<li>Web技术：Electron 基于 Chromium 和 Node.js, 让你可以使用 HTML, CSS 和 JavaScript 构建应用。</li>
+<li>开源：Electron 是一个由 GitHub 及众多贡献者组成的活跃社区共同维护的开源项目。</li>
+<li>跨平台：Electron 兼容 Mac、Windows 和 Linux，可以构建出三个平台的应用程序。</li>
 </ul>
-<h1 id="二、一切的开始——Package-Control"><a href="#二、一切的开始——Package-Control" class="headerlink" title="二、一切的开始——Package Control"></a>二、一切的开始——Package Control</h1><p>Package Control类似于ST上的APP Store，安装使用都比较简单</p>
-<ol>
-<li>复制以下代码：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">import urllib.request,os; pf = &#x27;Package Control.sublime-package&#x27;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &#x27;wb&#x27;).write(urllib.request.urlopen( &#x27;http://sublime.wbond.net/&#x27; + pf.replace(&#x27; &#x27;,&#x27;%20&#x27;)).read())<br></code></pre></td></tr></table></figure></li>
-<li>crtl+~开启console，粘贴+enter</li>
-<li>ctrl+shift+p就可以打开辣~Σ(ﾟ∀ﾟﾉ)ﾉ</li>
+<h1 id="二、售票机系统结构图"><a href="#二、售票机系统结构图" class="headerlink" title="二、售票机系统结构图"></a>二、售票机系统结构图</h1><p><img src="/images/dig-in/004/image1.png" alt="售票机系统结构图"></p>
+<h1 id="三、Native主要功能点-amp-硬件"><a href="#三、Native主要功能点-amp-硬件" class="headerlink" title="三、Native主要功能点&amp;硬件"></a>三、Native主要功能点&amp;硬件</h1><h2 id="主要功能点"><a href="#主要功能点" class="headerlink" title="主要功能点"></a>主要功能点</h2><ol>
+<li><h3 id="获取硬件信息，进行token加密"><a href="#获取硬件信息，进行token加密" class="headerlink" title="获取硬件信息，进行token加密"></a>获取硬件信息，进行token加密</h3><p>售票机与RESTful通信需要提供一台机器唯一的密钥，目前是通过“各硬件id+设备id号”进行sha1加密得到的，理论上唯一的“设备id号”就能保证生成的token唯一。Electron取不到诸如CPUid之类细粒度的数据，所以双方token协议需要一起修改。</p>
+</li>
+<li><h3 id="硬件设备调用"><a href="#硬件设备调用" class="headerlink" title="硬件设备调用"></a>硬件设备调用</h3><p>主要驱动三种硬件设备：身份证读取设备，扫码设备，打印机。</p>
+<p>身份证读取设备分USB驱动和串口驱动 扫码设备分USB免驱和串口驱动。</p>
+<p>打印机走统一打印协议，但需要自行维护打印模板。</p>
+</li>
+<li><h3 id="Clog-本地-日志"><a href="#Clog-本地-日志" class="headerlink" title="Clog/本地 日志"></a>Clog/本地 日志</h3><p>Nodejs层可以实现clog日志的记录 本地日志需要读写本地文件。</p>
+</li>
+<li><h3 id="软件升级"><a href="#软件升级" class="headerlink" title="软件升级"></a>软件升级</h3><p>Electron有充足的解决方案，可以实现增量/全量更新。但更新方法的变更可能需要配置后台变更升级包的部署方式。</p>
+</li>
 </ol>
-<p>氮素！我发现Package Control被墙了！万恶的GFW！！！ヽ(●-`Д´-)ノ</p>
-<p>大家装插件的话全局翻墙吧。。。இ௰இ</p>
-<h1 id="三、自用插件简单介绍"><a href="#三、自用插件简单介绍" class="headerlink" title="三、自用插件简单介绍"></a>三、自用插件简单介绍</h1><p>如图</p>
-<p><img src="/images/essay/001/image1.png" alt="image1"></p>
-<p>其实有很多装了没用上。。。</p>
-<p>我逐个介绍ヽ(•̀ω•́ )ゝ</p>
-<h1 id="四、强烈推荐的插件-amp-使用方法"><a href="#四、强烈推荐的插件-amp-使用方法" class="headerlink" title="四、强烈推荐的插件&amp;使用方法"></a>四、强烈推荐的插件&amp;使用方法</h1><p>Emmet：主要用来提高编写HTML的效率，也可以用来写CSS，个人后者用的不多。</p>
-<p>Emmet LiveStyle：能够做到ST、Chrome修改同步，即ST修改实时在Chrome上显示，Chrome控制台修改实时在ST上同步。</p>
-<p>缺点是配置安装什么的比较麻烦，似乎需要科学上网。。。ヾ(｡｀Д´｡)</p>
-<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><p>挑喜欢的用吧~</p>
+<h2 id="硬件设备"><a href="#硬件设备" class="headerlink" title="硬件设备"></a>硬件设备</h2><ul>
+<li><p>身份证读取设备</p>
+<p>USB设备，通过webSocket实现数据通信；</p>
+<p>串口设备，使用serial-port npm插件实现数据通信。</p>
+</li>
+<li><p>扫码设备</p>
+<p>USB设备，等同于USB键盘；</p>
+<p>串口设备，使用serial-port npm插件实现数据通信。</p>
+</li>
+</ul>
+<h1 id="四、优缺点总结"><a href="#四、优缺点总结" class="headerlink" title="四、优缺点总结"></a>四、优缺点总结</h1><h2 id="改动点"><a href="#改动点" class="headerlink" title="改动点"></a>改动点</h2><ol>
+<li><h3 id="硬件设备的调用"><a href="#硬件设备的调用" class="headerlink" title="硬件设备的调用"></a>硬件设备的调用</h3><p>原计划采用ffi/edge调用各硬件驱动dll文件，学习成本较高。可以通过对硬件进行分类，对于串口设备使用serial-port中间件完成数据通信。对于打印机设备，区分不同打印纸张，使用不同的html打印模板，调用系统打印服务进行打印，以及打印队列的监听。</p>
+</li>
+<li><h3 id="native日志，升级功能"><a href="#native日志，升级功能" class="headerlink" title="native日志，升级功能"></a>native日志，升级功能</h3><p>native日志的迁移比较细碎。Electron升级方式的改变，可能需要牵扯到后台配置页面的配合变更。</p>
+</li>
+<li><h3 id="token加密方式的变更"><a href="#token加密方式的变更" class="headerlink" title="token加密方式的变更"></a>token加密方式的变更</h3><p>由于无法获取到细粒度的硬件id数据，设备注册、以及接口交互时所用的token生成方式需要变更。必然会牵扯到RESTful接口的改动。</p>
+</li>
+</ol>
+<h2 id="优缺点分析"><a href="#优缺点分析" class="headerlink" title="优缺点分析"></a>优缺点分析</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>有助于后续新硬件接入等需要变更native代码的情况下，升级native程序。</li>
+<li>有助于售票机全流程的把控，软硬件问题方便定位处理。</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>没有新增需求的情况下迁移成本较大，试运行阶段流程上可能会出现一些bug。</li>
+<li>对于硬件调用的认知相对比较粗浅，出问题无法准确定位是硬件问题还是中间件问题。</li>
+<li>需要接口、配置后台同步进行改动，灰度试运行的话兼容代码是个问题。</li>
+</ol>
 
       </section>
 
@@ -175,8 +198,8 @@
     
     <div class="card-text">
       
-        <a href="/2016/09/09/essay/Vol.001%20Sublime%20Text%E4%BB%8B%E7%BB%8D/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">Sublime Text介绍</h2>
+        <a href="/2021/06/04/dig-in/Vol.005%20%E5%88%9D%E6%8E%A2%20CSS%20attr()/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">初探 CSS attr()</h2>
         </a>
       
       <div class="card-text--row">Newer</div>
@@ -190,8 +213,8 @@
     
     <div class="card-text">
       
-        <a href="/2016/06/03/dig-in/Vol.002%20CSS%E7%BB%98%E5%9B%BE/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">CSS绘图</h2>
+        <a href="/2019/10/14/bugs/Vol.023%20setState%E5%BC%82%E6%AD%A5%E6%8E%A2%E7%A9%B6/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">setState异步探究</h2>
         </a>
       
       <div class="card-text--row">Older</div>
@@ -233,7 +256,7 @@
         <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
 </svg>
-        <span>34</span>
+        <span>33</span>
       </div>
       <div class="count-box--item">
         <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -293,15 +316,15 @@
       
         
         <li class="categorys-list-item">
-          <a href="/categories/sum-up/">
-            项目总结 (1)
+          <a href="/categories/essay/">
+            其他随笔 (3)
           </a>
         </li>
       
         
         <li class="categorys-list-item">
-          <a href="/categories/essay/">
-            其他随笔 (4)
+          <a href="/categories/sum-up/">
+            项目总结 (1)
           </a>
         </li>
       
@@ -318,7 +341,7 @@
   </div>
   <div class="widget-body">
     <div class="tags-cloud">
-      <a href="/tags/antd/" style="font-size: 10px;" class="tags-cloud-0">antd</a> <a href="/tags/aria2/" style="font-size: 10px;" class="tags-cloud-0">aria2</a> <a href="/tags/canvas/" style="font-size: 10px;" class="tags-cloud-0">canvas</a> <a href="/tags/css/" style="font-size: 18px;" class="tags-cloud-8">css</a> <a href="/tags/electron/" style="font-size: 10px;" class="tags-cloud-0">electron</a> <a href="/tags/gulp/" style="font-size: 10px;" class="tags-cloud-0">gulp</a> <a href="/tags/js/" style="font-size: 16px;" class="tags-cloud-6">js</a> <a href="/tags/node/" style="font-size: 14px;" class="tags-cloud-4">node</a> <a href="/tags/react/" style="font-size: 12px;" class="tags-cloud-2">react</a> <a href="/tags/sublime-text/" style="font-size: 12px;" class="tags-cloud-2">sublime text</a> <a href="/tags/ts/" style="font-size: 10px;" class="tags-cloud-0">ts</a> <a href="/tags/vue/" style="font-size: 20px;" class="tags-cloud-10">vue</a> <a href="/tags/webpack/" style="font-size: 10px;" class="tags-cloud-0">webpack</a>
+      <a href="/tags/antd/" style="font-size: 10px;" class="tags-cloud-0">antd</a> <a href="/tags/aria2/" style="font-size: 10px;" class="tags-cloud-0">aria2</a> <a href="/tags/canvas/" style="font-size: 10px;" class="tags-cloud-0">canvas</a> <a href="/tags/css/" style="font-size: 18px;" class="tags-cloud-8">css</a> <a href="/tags/electron/" style="font-size: 10px;" class="tags-cloud-0">electron</a> <a href="/tags/gulp/" style="font-size: 10px;" class="tags-cloud-0">gulp</a> <a href="/tags/js/" style="font-size: 16px;" class="tags-cloud-6">js</a> <a href="/tags/node/" style="font-size: 14px;" class="tags-cloud-4">node</a> <a href="/tags/react/" style="font-size: 12px;" class="tags-cloud-2">react</a> <a href="/tags/sublime-text/" style="font-size: 10px;" class="tags-cloud-0">sublime text</a> <a href="/tags/ts/" style="font-size: 10px;" class="tags-cloud-0">ts</a> <a href="/tags/vue/" style="font-size: 20px;" class="tags-cloud-10">vue</a> <a href="/tags/webpack/" style="font-size: 10px;" class="tags-cloud-0">webpack</a>
     </div>
   </div>
 </section>
