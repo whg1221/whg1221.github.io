@@ -22,7 +22,7 @@
 
   
 
-  <title>其他随笔测试 | whg1221的小站</title>
+  <title>CSS Filter实现图标变色的研究 | whg1221的小站</title>
 
   
 
@@ -32,7 +32,7 @@
 
   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.3/index.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/monokai.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/atom-one-dark.css">
   
 
   
@@ -102,20 +102,21 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">其他随笔测试</h1>
+          <h1 class="title-wrap">CSS Filter实现图标变色的研究</h1>
           <h2 class="title-sub-wrap">
             <strong>whg1221</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2022-01-01T00:00:00.000Z" itemprop="datePublished">2022-01-01</time>
+            <time  class="article-date" datetime="2021-12-03T10:00:00.000Z" itemprop="datePublished">2021-12-03</time>
           </h2>
           <ul class="wrap-list dark">
   
-    <li><a href="/categories/essay/">📒 essay</a></li>
+    
+    <li><a href="/categories/dig-in/">📒 深入研究</a></li>
   
 </ul>
           <ul class="wrap-list dark">
   
-    <li><a href="/tags/vue/">🏷️ vue</a></li>
+    <li><a href="/tags/css/">🏷️ css</a></li>
   
 </ul>
         </div>
@@ -139,7 +140,76 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <p>test</p>
+        <h1 id="一、起因"><a href="#一、起因" class="headerlink" title="一、起因"></a>一、起因</h1><p>做售票机退订项目时，引用的公司框架中的InputNmuber组件，按钮的颜色与设计稿不一致，且为组件内部写死fill color值，无法外部配置修改。</p>
+<p>（组件内按钮颜色为<span style="color: #0086F6">#0086F6</span>，设计稿按钮颜色为<span style="color: #1658DC">#1658DC</span>）</p>
+<h1 id="二、初步解决方案"><a href="#二、初步解决方案" class="headerlink" title="二、初步解决方案"></a>二、初步解决方案</h1><p>参考<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/29037023/how-to-calculate-required-hue-rotate-to-generate-specific-colour/29958459">stackoverflow</a>讨论，采用CSS Filter方式转化色值。</p>
+<p>以下是相关背景知识，太长不看的可以直接跳到转换步骤</p>
+<blockquote>
+<h3 id="HSL色彩模式相关说明"><a href="#HSL色彩模式相关说明" class="headerlink" title="HSL色彩模式相关说明"></a>HSL色彩模式相关说明</h3><p>HSL和HSV都是一种将RGB色彩模型中的点在圆柱坐标系中的表示法。这两种表示法试图做到比基于笛卡尔坐标系的几何结构RGB更加直观。</p>
+<p>HSL即色相、饱和度、亮度（英语：Hue, Saturation, Lightness）。HSV即色相、饱和度、明度（英语：Hue, Saturation, Value），又称HSB，其中B即英语：Brightness。</p>
+<p>色相（H）是色彩的基本属性，就是平常所说的颜色名称，如红色、黄色等。</p>
+<p>饱和度（S）是指色彩的纯度，越高色彩越纯，低则逐渐变灰，取0-100%的数值。</p>
+<p>明度（V），亮度（L），取0-100%。</p>
+<p><img src="/images/dig-in/006/image1.png" alt="HSL色彩模式相关说明"></p>
+<h3 id="从RGB到HSL的转换"><a href="#从RGB到HSL的转换" class="headerlink" title="从RGB到HSL的转换"></a>从RGB到HSL的转换</h3><p>设 (r, g, b)分别是一个颜色的红、绿和蓝坐标，它们的值是在0到1之间的实数。设max等价于r, g和b中的最大者。设min等于这些值中的最小者。要找到在HSL空间中的 (h, s, l)值，这里的h ∈ [0, 360）度是角度的色相角，而s, l ∈ [0,1]是饱和度和亮度，计算公式为：</p>
+<p><img src="/images/dig-in/006/image2.png" alt="从RGB到HSL的转换"></p>
+</blockquote>
+<p>转换步骤如下：</p>
+<ol>
+<li><p>原色值、目标色值转化为HSL格式。（#0086F6 -&gt; HSL(207deg,100%,48%)、#1658DC -&gt; HSL(220deg,82%,47%)）</p>
+</li>
+<li><p>计算两者差值</p>
+<p>H: 220 - 207        -&gt; 13°</p>
+<p>S: 100 + (100 - 82) -&gt; 118% (relative to base 100% = 18%)</p>
+<p>L: 100 + (47 - 48)  -&gt;  99% (relative to base 100% = -1%)</p>
+</li>
+<li><p>最终的CSS Filter为：</p>
+<p>filter: hue-rotate(13deg) saturate(118%) brightness(99%);</p>
+</li>
+</ol>
+<p>最终效果如下</p>
+<p>原色值： <img src="/images/dig-in/006/image3.png" alt="原色值"></p>
+<p>转换后色值： <img src="/images/dig-in/006/image4.png" alt="转换后色值"></p>
+<p>目标色值：<img src="/images/dig-in/006/image5.png" alt="目标色值"></p>
+<p>思考：可以看到计算出来的数据，颜色还有差距，数据微调之后仍然无法完美。</p>
+<p>原因：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/19187905/why-doesnt-hue-rotation-by-180deg-and-180deg-yield-the-original-color/19325417">CSS的hue-rotate不是真正的色调旋转而是线性近似</a></p>
+<p><img src="/images/dig-in/006/image6.png" alt="image6"></p>
+<p><img src="/images/dig-in/006/image7.png" alt="image7"></p>
+<h1 id="三、略微深入研究"><a href="#三、略微深入研究" class="headerlink" title="三、略微深入研究"></a>三、略微深入研究</h1><p>中文资料上参考张鑫旭的老文<a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2018/11/css-change-icon-color/">《纯CSS实现任意格式图标变色的研究》</a></p>
+<ol>
+<li><p>滤镜法：</p>
+<p>优点：支持svg定色图标的变色</p>
+<p>缺点：色差不可避免，只能接近，难以100%匹配</p>
+</li>
+<li><p>SVG背景叠加CSS遮罩法</p>
+<p>优点：能直接实现变色效果（无需计算）</p>
+<p>缺点：都引用SVG背景了，直接改个颜色不好么……</p>
+</li>
+<li><p>background-blend-mode混合模式</p>
+<p>优点同上</p>
+<p>缺点：图标需要黑色白底，其余缺点同上</p>
+</li>
+</ol>
+<h1 id="四、继续深入研究"><a href="#四、继续深入研究" class="headerlink" title="四、继续深入研究"></a>四、继续深入研究</h1><p>针对CSS Filter的大方向，<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/42966641/how-to-transform-black-into-any-given-color-using-only-css-filters">《How to transform black into any given color using only CSS filters》</a>的最高赞提出了一个复杂的算法，不同于其他答主的暴力计算比对误差值，时间复杂度上更优。</p>
+<p>另外一条是走<a target="_blank" rel="noopener" href="https://www.w3.org/TR/filter-effects-1/">SVG滤镜</a>路线，采用feColorMatrix方法，通过矩阵计算能得到精确的色彩变换矩阵。但还是回到适用性，既然能直接控制SVG，也没有必要叠加如此复杂的滤镜了，直接改色就好了。</p>
+<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><ul>
+<li><p>适用场景</p>
+</li>
+<li><p>成本收益</p>
+</li>
+<li><p>后续探索</p>
+</li>
+</ul>
+<br/>
+
+<p>参考：</p>
+<ol>
+<li>《How to calculate required hue-rotate to generate specific colour?》<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/29037023/how-to-calculate-required-hue-rotate-to-generate-specific-colour/29958459">https://stackoverflow.com/questions/29037023/how-to-calculate-required-hue-rotate-to-generate-specific-colour/29958459#29958459</a></li>
+<li>《Why doesn’t hue rotation by +180deg and -180deg yield the original color?》https://<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/19187905/why-doesnt-hue-rotation-by-180deg-and-180deg-yield-the-original-color/19325417">stackoverflow.com/questions/19187905/why-doesnt-hue-rotation-by-180deg-and-180deg-yield-the-original-color/19325417#19325417</a></li>
+<li>《纯CSS实现任意格式图标变色的研究》<a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2018/11/css-change-icon-color/">https</a><a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2018/11/css-change-icon-color/">://www.zhangxinxu.com/wordpress/2018/11/css-change-icon-color/</a></li>
+<li>《How to transform black into any given color using only CSS filters》<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/42966641/how-to-transform-black-into-any-given-color-using-only-css-filters">https</a><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/42966641/how-to-transform-black-into-any-given-color-using-only-css-filters">://stackoverflow.com/questions/42966641/how-to-transform-black-into-any-given-color-using-only-css-filters</a></li>
+<li>《feColorMatrix》<a target="_blank" rel="noopener" href="https://www.w3.org/TR/filter-effects-1/#feColorMatrixElement">https://www.w3.org/TR/filter-effects-1/#feColorMatrixElement</a></li>
+</ol>
 
       </section>
 
@@ -147,14 +217,28 @@
       
         <nav class="article-nav">
           
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2021/12/10/essay/Vol.003%20%E5%85%AC%E5%8F%B8%E4%B8%AD%E5%8F%B0%E9%A1%B5%E9%9D%A2%E7%94%9F%E4%BA%A7%E5%8F%91%E5%B8%83%E9%97%AE%E9%A2%98%E5%A4%8D%E7%9B%98/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">公司中台页面生产发布问题复盘</h2>
+        </a>
+      
+      <div class="card-text--row">Newer</div>
+    </div>
+  </article>
+</div>
+          
           
             <div class="article-nav-item layout-padding">
   <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
     
     <div class="card-text">
       
-        <a href="/2022/01/01/sum-up/Vol.001%20%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%E6%B5%8B%E8%AF%95/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">项目总结测试</h2>
+        <a href="/2021/06/04/dig-in/Vol.005%20%E5%88%9D%E6%8E%A2%20CSS%20attr()/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">初探 CSS attr()</h2>
         </a>
       
       <div class="card-text--row">Older</div>
@@ -196,7 +280,7 @@
         <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
 </svg>
-        <span>26</span>
+        <span>34</span>
       </div>
       <div class="count-box--item">
         <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -208,7 +292,7 @@
         <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
 </svg>
-        9
+        13
       </div>
     </div>
   </div>
@@ -225,7 +309,7 @@
     <span>NOTICE</span>
   </div>
   <div class="widget-body">
-    <p>GWY面试 &amp; WFOE工作机会准备ing</p>
+    <p>WFOE工作机会准备ing</p>
   </div>
 </section>
 
@@ -250,7 +334,7 @@
         
         <li class="categorys-list-item">
           <a href="/categories/dig-in/">
-            深入研究 (1)
+            深入研究 (6)
           </a>
         </li>
       
@@ -264,7 +348,7 @@
         
         <li class="categorys-list-item">
           <a href="/categories/essay/">
-            其他随笔 (1)
+            其他随笔 (4)
           </a>
         </li>
       
@@ -281,7 +365,7 @@
   </div>
   <div class="widget-body">
     <div class="tags-cloud">
-      <a href="/tags/antd/" style="font-size: 10px;" class="tags-cloud-0">antd</a> <a href="/tags/canvas/" style="font-size: 10px;" class="tags-cloud-0">canvas</a> <a href="/tags/css/" style="font-size: 16px;" class="tags-cloud-6">css</a> <a href="/tags/js/" style="font-size: 18px;" class="tags-cloud-8">js</a> <a href="/tags/node/" style="font-size: 14px;" class="tags-cloud-4">node</a> <a href="/tags/react/" style="font-size: 12px;" class="tags-cloud-2">react</a> <a href="/tags/ts/" style="font-size: 10px;" class="tags-cloud-0">ts</a> <a href="/tags/vue/" style="font-size: 20px;" class="tags-cloud-10">vue</a> <a href="/tags/webpack/" style="font-size: 10px;" class="tags-cloud-0">webpack</a>
+      <a href="/tags/antd/" style="font-size: 10px;" class="tags-cloud-0">antd</a> <a href="/tags/aria2/" style="font-size: 10px;" class="tags-cloud-0">aria2</a> <a href="/tags/canvas/" style="font-size: 10px;" class="tags-cloud-0">canvas</a> <a href="/tags/css/" style="font-size: 18px;" class="tags-cloud-8">css</a> <a href="/tags/electron/" style="font-size: 10px;" class="tags-cloud-0">electron</a> <a href="/tags/gulp/" style="font-size: 10px;" class="tags-cloud-0">gulp</a> <a href="/tags/js/" style="font-size: 16px;" class="tags-cloud-6">js</a> <a href="/tags/node/" style="font-size: 14px;" class="tags-cloud-4">node</a> <a href="/tags/react/" style="font-size: 12px;" class="tags-cloud-2">react</a> <a href="/tags/sublime-text/" style="font-size: 12px;" class="tags-cloud-2">sublime text</a> <a href="/tags/ts/" style="font-size: 10px;" class="tags-cloud-0">ts</a> <a href="/tags/vue/" style="font-size: 20px;" class="tags-cloud-10">vue</a> <a href="/tags/webpack/" style="font-size: 10px;" class="tags-cloud-0">webpack</a>
     </div>
   </div>
 </section>
