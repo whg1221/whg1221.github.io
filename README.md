@@ -1,8 +1,9 @@
-# whg1221.github.io
-- Powered by [Hexo](https://hexo.io/zh-cn/)
+# Yet Another Values Test
+Yet Another Values Test是一个基于8Values做的站队娱乐测试，切勿当真！
 
-- Theme by [flex-block](https://github.com/miiiku/hexo-theme-flexblock)
+#题库及模型自定义
+目前题库存储在 questions 目录下,
+模型存储的位置在 models 目录下,
+修改题库与模型无需对其他部分进行修改.
 
-此repo仅供GitHub Pages发布用，源代码仓库在[hexo-blog](https://github.com/whg1221/hexo-blog)
-
-为规避频繁提交引起的页面问题，没有引入Travis CI或Github Actions实时deploy
+fork from https://github.com/YetAnotherValuesTest/YetAnotherValuesTest.github.io
